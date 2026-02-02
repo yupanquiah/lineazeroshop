@@ -13,7 +13,7 @@
     ]
   },
   "experimentalTailwindcss": {
-    "stylesheet": "./path/to/stylesheet.css",
+    "stylesheet": "./src/styles/global.css",
     "attributes": ["class", "className"],
     "functions": ["clsx", "cn"],
     "preserveWhitespace": true
