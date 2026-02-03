@@ -38,7 +38,7 @@
     "vite-tsconfig-paths": "6.0.2"
   },
   "lint-staged": {
-    "*.{ts,tsx}": "bun run lint",
+    "*.{ts,tsx}": "pnpm run lint",
     "*": "oxfmt --no-error-on-unmatched-pattern"
   }
 }
