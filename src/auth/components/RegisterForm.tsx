@@ -1,6 +1,7 @@
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 
+import { ShowPassword } from "@/auth/components/ShowPassword";
 import { SocialAuthButtons } from "@/auth/components/SocialAuthButtons";
 import { registerFormSchema } from "@/auth/schemas/auth";
 import { register } from "@/auth/services/auth";
@@ -13,8 +14,6 @@ import {
 } from "@/components/ui/field";
 import { Fieldset } from "@/components/ui/fieldset";
 import { Input } from "@/components/ui/input";
-
-import { ShowPassword } from "./ShowPassword";
 
 export function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +32,7 @@ export function RegisterForm() {
 
   return (
     <form
-      id="login-form"
+      id="register-form"
       onSubmit={(e) => {
         e.preventDefault();
         void form.handleSubmit();
@@ -63,10 +62,10 @@ export function RegisterForm() {
                     aria-invalid={isInvalid}
                     placeholder="Juan"
                     autoComplete="off"
-                    type="name"
+                    type="text"
                   />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </FieldLabel>
+                {isInvalid && <FieldError errors={field.state.meta.errors} />}
               </Field>
             );
           }}
@@ -92,8 +91,8 @@ export function RegisterForm() {
                     autoComplete="off"
                     type="email"
                   />
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </FieldLabel>
+                {isInvalid && <FieldError errors={field.state.meta.errors} />}
               </Field>
             );
           }}
@@ -124,8 +123,8 @@ export function RegisterForm() {
                       onToggle={() => setShowPassword((current) => !current)}
                     />
                   </div>
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </FieldLabel>
+                {isInvalid && <FieldError errors={field.state.meta.errors} />}
               </Field>
             );
           }}

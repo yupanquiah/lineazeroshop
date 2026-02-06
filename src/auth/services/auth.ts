@@ -1,6 +1,6 @@
-import { LoginProps, RegisterProps } from "@/auth/types";
+import { authClient } from "@/auth/lib/auth-client";
+import { LoginProps, RegisterProps } from "@/auth/types/index";
 import { toastManager } from "@/components/ui/toast";
-import { authClient } from "@/lib/auth-client";
 
 export const authWithGoogle = async () => {
   await authClient.signIn.social({
@@ -60,7 +60,7 @@ export const register = async ({ value }: { value: RegisterProps }) => {
       },
       onError: (ctx) => {
         toastManager.add({
-          title: "Register faild",
+          title: "Register failed",
           description: ctx.error.message,
           type: "error",
         });

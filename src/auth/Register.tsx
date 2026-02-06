@@ -1,7 +1,6 @@
-import { AuthLayout } from "@/layouts/AuthLayout";
-
-import { AuthCard } from "./components/AuthCard";
-import { RegisterForm } from "./components/RegisterForm";
+import { AuthCard } from "@/auth/components/AuthCard";
+import { RegisterForm } from "@/auth/components/RegisterForm";
+import { AuthLayout } from "@/auth/layouts/AuthLayout";
 
 export function Register() {
   return (
