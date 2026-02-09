@@ -35,7 +35,7 @@
   --surface-tertiary-foreground: oklch(21.03% 0.0015 253.83);
   --warning: oklch(78.19% 0.159 72.33);
   --warning-foreground: oklch(21.03% 0.0059 72.33);
-  --radius: 0.5rem;
+  --radius: 0.25rem;
   --field-radius: 0.75rem;
   --font-sans: "Geist Variable", sans-serif;
 }
