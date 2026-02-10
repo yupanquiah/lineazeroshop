@@ -1,9 +1,9 @@
 import "@fontsource-variable/geist?url";
 
+import { Toast } from "@heroui/react";
 import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { AnchoredToastProvider, ToastProvider } from "@/components/ui/toast";
 import appCss from "@/styles/global.css?url";
 
 export const Route = createRootRoute({
@@ -33,23 +33,15 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className="dark" data-theme="dark" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ToastProvider>
-            <AnchoredToastProvider>
-              {children}
-              <Scripts />
-            </AnchoredToastProvider>
-          </ToastProvider>
+      <body className="bg-background text-foreground">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Toast.Provider placement="bottom end" />
+          {children}
+          <Scripts />
         </ThemeProvider>
       </body>
     </html>
