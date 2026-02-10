@@ -9,7 +9,7 @@ export function Register() {
         title="Regístrate"
         question="¿Ya tienes una cuenta?"
         to="/login"
-        toLabel="Iniciar sesión"
+        toLabel="Inicia sesión"
       >
         <RegisterForm />
       </AuthCard>

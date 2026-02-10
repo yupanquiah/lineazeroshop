@@ -1,34 +1,28 @@
+import { Button, Tooltip } from "@heroui/react";
 import { IconEye, IconEyeClosed } from "@tabler/icons-react";
 
-import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipPopup, TooltipTrigger } from "@/components/ui/tooltip";
-
 interface ShowPasswordProps {
-  onToggle: () => void;
-  showPassword: boolean;
+  onPress: () => void;
+  isVisible: boolean;
 }
 
-export function ShowPassword({ onToggle, showPassword }: ShowPasswordProps) {
+export function ShowPassword({ onPress, isVisible }: ShowPasswordProps) {
   return (
     <Tooltip>
-      <div className="absolute top-0 right-1 bottom-0 flex h-full items-center justify-center">
-        <TooltipTrigger
-          render={
-            <Button
-              type="button"
-              size="icon-xs"
-              variant="ghost"
-              aria-label={showPassword ? "Hide password" : "Show password"}
-              onClick={onToggle}
-            >
-              {showPassword ? <IconEyeClosed /> : <IconEye />}
-            </Button>
-          }
-        />
-      </div>
-      <TooltipPopup side="top">
-        <p>{showPassword ? "Hide password" : "Show password"}</p>
-      </TooltipPopup>
+      <Button
+        isIconOnly
+        size="sm"
+        variant="ghost"
+        aria-label={isVisible ? "Hide password" : "Show password"}
+        onPress={onPress}
+      >
+        {isVisible ? <IconEyeClosed /> : <IconEye />}
+      </Button>
+
+      <Tooltip.Content showArrow placement="top">
+        <Tooltip.Arrow />
+        <p>{isVisible ? "Hide password" : "Show password"}</p>
+      </Tooltip.Content>
     </Tooltip>
   );
 }

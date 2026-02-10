@@ -7,13 +7,13 @@ import { authWithGitHub, authWithGoogle } from "@/auth/services/auth";
 
 export function SocialAuthButtons() {
   return (
-    <section className="flex flex-col gap-2">
+    <section className="flex flex-col  gap-2">
       {" "}
-      <Button variant="outline" onClick={authWithGoogle}>
+      <Button className="w-full" variant="tertiary" onClick={authWithGoogle}>
         <IconBrandGoogleFilled />
         Iniciar sesión con Google
       </Button>
-      <Button variant="outline" onClick={authWithGitHub}>
+      <Button className="w-full" variant="tertiary" onClick={authWithGitHub}>
         <IconBrandGithub />
         Iniciar sesión con GitHub
       </Button>

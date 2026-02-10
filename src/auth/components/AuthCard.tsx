@@ -1,40 +1,35 @@
-import { Link, LinkProps } from "@tanstack/react-router";
-import { ReactNode } from "react";
+import { Card } from "@heroui/react";
+import { Link } from "@tanstack/react-router";
 
-import {
-  Card,
-  CardFooter,
-  CardHeader,
-  CardPanel,
-  CardTitle,
-} from "@/components/ui/card";
+import { AuthCardProps } from "../types";
 
-interface Props {
-  children?: ReactNode;
-  title: string;
-  question: string;
-  to: LinkProps["to"];
-  toLabel: string;
-}
-
-export function AuthCard({ children, title, question, to, toLabel }: Props) {
+export function AuthCard({
+  children,
+  title,
+  question,
+  to,
+  toLabel,
+}: AuthCardProps) {
   return (
-    <Card className="flex w-full flex-col">
-      <CardHeader className="text-center">
-        <CardTitle className="text-xl">{title}</CardTitle>
-      </CardHeader>
-      <CardPanel>{children}</CardPanel>
-      <CardFooter>
-        <p className="w-full text-center text-sm text-muted-foreground">
+    <Card className="w-full max-w-sm bg-surface/60 px-8 pt-6 pb-10 backdrop-blur-md backdrop-saturate-150">
+      <Card.Header>
+        <Card.Title className="pb-2 text-xl font-medium">{title}</Card.Title>
+        {/*    <Card.Description className="text-small text-default-500">
+          to continue to Acme
+        </Card.Description> */}
+      </Card.Header>
+      <Card.Content>{children}</Card.Content>
+      <Card.Footer>
+        <p className="w-full px-1 pt-2 text-center text-sm text-muted">
           {question}{" "}
           <Link
-            className="font-bold hover:text-foreground hover:underline"
+            className=" font-bold text-accent hover:text-accent-hover hover:underline"
             to={to}
           >
             {toLabel}
           </Link>
         </p>
-      </CardFooter>
+      </Card.Footer>
     </Card>
   );
 }

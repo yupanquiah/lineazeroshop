@@ -1,6 +1,7 @@
+import { toast } from "@heroui/react";
+
 import { authClient } from "@/auth/lib/auth-client";
 import { LoginProps, RegisterProps } from "@/auth/types/index";
-import { toastManager } from "@/components/ui/toast";
 
 export const authWithGoogle = async () => {
   await authClient.signIn.social({
@@ -25,18 +26,10 @@ export const login = async ({ value }: { value: LoginProps }) => {
     },
     {
       onSuccess: () => {
-        toastManager.add({
-          title: "Login successful",
-          description: "You have been logged in successfully.",
-          type: "success",
-        });
+        toast.success("Inicio de sesión exitoso");
       },
       onError: (ctx) => {
-        toastManager.add({
-          title: "Login failed",
-          description: ctx.error.message,
-          type: "error",
-        });
+        toast.danger(ctx.error.message);
       },
     },
   );
@@ -52,18 +45,10 @@ export const register = async ({ value }: { value: RegisterProps }) => {
     },
     {
       onSuccess: () => {
-        toastManager.add({
-          title: "Signup successful",
-          description: "Your account has been created successfully.",
-          type: "success",
-        });
+        toast.success("Registro exitoso");
       },
       onError: (ctx) => {
-        toastManager.add({
-          title: "Register failed",
-          description: ctx.error.message,
-          type: "error",
-        });
+        toast.danger(ctx.error.message);
       },
     },
   );

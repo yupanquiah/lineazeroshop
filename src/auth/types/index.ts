@@ -1,3 +1,4 @@
+import { LinkProps } from "@tanstack/react-router";
 import { ReactNode } from "react";
 
 export interface LoginProps {
@@ -14,4 +15,10 @@ export interface AuthLayoutProps {
   name?: string;
   title?: string;
   description?: string;
+}
+
+export interface AuthCardProps extends AuthLayoutProps {
+  question: string;
+  to: LinkProps["to"];
+  toLabel: string;
 }
