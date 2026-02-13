@@ -3,21 +3,28 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { ShowPassword } from "@/auth/components/ShowPassword";
-import { SocialAuthButtons } from "@/auth/components/SocialAuthButtons";
+import { SocialAuth } from "@/auth/components/SocialAuth";
 import { loginFormSchema } from "@/auth/schemas/auth";
 import { login } from "@/auth/services/auth";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Field,
+  FieldDescription,
   FieldError,
+  FieldGroup,
   FieldLabel,
   FieldSeparator,
 } from "@/components/ui/field";
-import { Fieldset } from "@/components/ui/fieldset";
 import { Input } from "@/components/ui/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 
 export function LoginForm() {
-  const [showPassword, setShowPassword] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   const form = useForm({
     defaultValues: {
@@ -38,33 +45,26 @@ export function LoginForm() {
         void form.handleSubmit();
       }}
     >
-      <Fieldset className="max-w-full">
-        <SocialAuthButtons />
-        <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
-          O continuar con
-        </FieldSeparator>
+      <FieldGroup>
         <form.Field
           name="email"
           children={(field) => {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
-              <Field data-invalid={isInvalid}>
-                <FieldLabel>
-                  Email
-                  <Input
-                    size="lg"
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    aria-invalid={isInvalid}
-                    placeholder="m@example.com"
-                    autoComplete="off"
-                    type="email"
-                  />
-                </FieldLabel>
+              <Field>
+                <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  aria-invalid={isInvalid}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  type="email"
+                  placeholder="m@example.com"
+                  autoComplete="off"
+                />
                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
               </Field>
             );
@@ -77,43 +77,52 @@ export function LoginForm() {
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
               <Field>
-                <FieldLabel>
-                  <div className="flex w-full items-center">
-                    <span>Password</span>
-                    <Link
-                      to="/auth/forgot-password"
-                      className="ml-auto text-sm underline-offset-4 opacity-60 hover:underline hover:opacity-100"
-                    >
-                      Forgot your password?
-                    </Link>
-                  </div>
-                  <div className="relative">
-                    <Input
-                      size="lg"
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      aria-invalid={isInvalid}
-                      placeholder="••••••••••••"
-                      type={showPassword ? "text" : "password"}
-                    />
+                <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    aria-invalid={isInvalid}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    type={isVisible ? "text" : "password"}
+                    placeholder="Ingrese tu contraseña"
+                  />
+                  <InputGroupAddon align="inline-end">
                     <ShowPassword
-                      showPassword={showPassword}
-                      onToggle={() => setShowPassword((current) => !current)}
+                      isVisible={isVisible}
+                      onClick={() => setIsVisible(!isVisible)}
                     />
-                  </div>
-                </FieldLabel>
+                  </InputGroupAddon>
+                </InputGroup>
                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
               </Field>
             );
           }}
         />
-        <Button size="lg" type="submit">
-          Login
-        </Button>
-      </Fieldset>
+        <div className="flex justify-between">
+          <Field orientation="horizontal">
+            <Checkbox id="remember" name="remember" />
+            <FieldLabel htmlFor="remember">Recordarme</FieldLabel>
+          </Field>
+          <FieldDescription>
+            <Link to="/forgot-password" className="text-sm text-nowrap">
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </FieldDescription>
+        </div>
+        <Field>
+          <Button type="submit">Iniciar sesión</Button>
+          <FieldSeparator className="my-2 *:data-[slot=field-separator-content]:bg-card [&>div]:h-px">
+            O inicia sesión con
+          </FieldSeparator>
+          <SocialAuth />
+          <FieldDescription className="py-2.5 text-center">
+            ¿No tienes una cuenta? <Link to="/register">Registrate</Link>
+          </FieldDescription>
+        </Field>
+      </FieldGroup>
     </form>
   );
 }

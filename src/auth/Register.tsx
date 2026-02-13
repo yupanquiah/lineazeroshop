@@ -5,12 +5,7 @@ import { AuthLayout } from "@/auth/layouts/AuthLayout";
 export function Register() {
   return (
     <AuthLayout>
-      <AuthCard
-        title="Regístrate"
-        question="¿Ya tienes una cuenta?"
-        to="/login"
-        toLabel="Inicia sesión"
-      >
+      <AuthCard>
         <RegisterForm />
       </AuthCard>
     </AuthLayout>

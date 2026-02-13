@@ -16,7 +16,7 @@ export function AuthLayout({ children, ...props }: AuthLayoutProps) {
         <IconChevronLeft className="size-4.5" aria-hidden="true" />
         Inicio
       </Link>
-      <main>{children}</main>
+      <main className="w-full max-w-sm">{children}</main>
     </div>
   );
 }

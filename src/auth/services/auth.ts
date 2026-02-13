@@ -1,4 +1,4 @@
-import { toast } from "@heroui/react";
+import { toast } from "sonner";
 
 import { authClient } from "@/auth/lib/auth-client";
 import { LoginProps, RegisterProps } from "@/auth/types/index";
@@ -29,7 +29,7 @@ export const login = async ({ value }: { value: LoginProps }) => {
         toast.success("Inicio de sesión exitoso");
       },
       onError: (ctx) => {
-        toast.danger(ctx.error.message);
+        toast.error(ctx.error.message);
       },
     },
   );
@@ -48,7 +48,7 @@ export const register = async ({ value }: { value: RegisterProps }) => {
         toast.success("Registro exitoso");
       },
       onError: (ctx) => {
-        toast.danger(ctx.error.message);
+        toast.error(ctx.error.message);
       },
     },
   );
