@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { ShowPassword } from "@/auth/components/ShowPassword";
+import { SocialAuth } from "@/auth/components/SocialAuth";
 import { registerFormSchema } from "@/auth/schemas/auth";
 import { register } from "@/auth/services/auth";
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,6 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 
-import { SocialAuth } from "./SocialAuth";
 export function RegisterForm() {
   const [isVisible, setIsVisible] = useState(false);
 
