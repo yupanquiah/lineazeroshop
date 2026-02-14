@@ -1,13 +1,13 @@
 import { AuthCard } from "@/auth/components/AuthCard";
 import { LoginForm } from "@/auth/components/LoginForm";
-import { AuthLayout } from "@/auth/layouts/AuthLayout";
 
 export function Login() {
   return (
-    <AuthLayout>
-      <AuthCard>
-        <LoginForm />
-      </AuthCard>
-    </AuthLayout>
+    <AuthCard
+      title="Login"
+      description="Enter your email below to login to your account"
+    >
+      <LoginForm />
+    </AuthCard>
   );
 }

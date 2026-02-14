@@ -1,11 +1,12 @@
 import { useForm } from "@tanstack/react-form";
-import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
 
 import { ShowPassword } from "@/auth/components/ShowPassword";
 import { SocialAuth } from "@/auth/components/SocialAuth";
-import { loginFormSchema } from "@/auth/schemas/auth";
-import { login } from "@/auth/services/auth";
+import { authClient } from "@/auth/lib/auth-client";
+import { loginSchema } from "@/auth/schemas/auth";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -22,9 +23,12 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import { Spinner } from "@/components/ui/spinner";
 
 export function LoginForm() {
+  const [isPending, startTransition] = useTransition();
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -32,9 +36,28 @@ export function LoginForm() {
       password: "",
     },
     validators: {
-      onSubmit: loginFormSchema,
+      onSubmit: loginSchema,
     },
-    onSubmit: login,
+    onSubmit: ({ value }) => {
+      startTransition(async () => {
+        await authClient.signIn.email({
+          email: value.email,
+          password: value.password,
+          //callbackURL: '/dashboard',
+          fetchOptions: {
+            onSuccess: () => {
+              toast.success("Logged in successfully");
+              void navigate({
+                to: "/dashboard",
+              });
+            },
+            onError: ({ error }) => {
+              toast.error(error.message);
+            },
+          },
+        });
+      });
+    },
   });
 
   return (
@@ -52,7 +75,7 @@ export function LoginForm() {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
-              <Field>
+              <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                 <Input
                   id={field.name}
@@ -76,7 +99,7 @@ export function LoginForm() {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
-              <Field>
+              <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                 <InputGroup>
                   <InputGroupInput
@@ -113,13 +136,22 @@ export function LoginForm() {
           </FieldDescription>
         </div>
         <Field>
-          <Button type="submit">Iniciar sesión</Button>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? (
+              <>
+                <Spinner />
+                Iniciando...
+              </>
+            ) : (
+              "Login"
+            )}
+          </Button>
           <FieldSeparator className="my-2 *:data-[slot=field-separator-content]:bg-card [&>div]:h-px">
             O inicia sesión con
           </FieldSeparator>
-          <SocialAuth />
+          <SocialAuth mode="login" />
           <FieldDescription className="py-2.5 text-center">
-            ¿No tienes una cuenta? <Link to="/register">Registrate</Link>
+            ¿No tienes una cuenta? <Link to="/signup">Registrate</Link>
           </FieldDescription>
         </Field>
       </FieldGroup>
