@@ -1,29 +1,41 @@
 import { IconBrandGithub, IconBrandGoogleFilled } from "@tabler/icons-react";
 
-import { authWithGitHub, authWithGoogle } from "@/auth/services/auth";
+import { authClient } from "@/auth/lib/auth-client";
 import { Button } from "@/components/ui/button";
 
-export function SocialAuth() {
+interface Props {
+  mode: "login" | "signup";
+}
+
+const authWithGoogle = async () => {
+  await authClient.signIn.social({
+    provider: "google",
+    callbackURL: "/dashboard",
+  });
+};
+
+const authWithGitHub = async () => {
+  await authClient.signIn.social({
+    provider: "github",
+    callbackURL: "/dashboard",
+  });
+};
+
+export function SocialAuth({ mode }: Props) {
   return (
-    <div className="inline-grid space-y-3">
-      <Button
-        className="cursor-pointer"
-        variant="outline"
-        type="button"
-        onClick={authWithGoogle}
-      >
+    <section className="inline-grid space-y-3">
+      <Button variant="outline" type="button" onClick={authWithGoogle}>
         <IconBrandGoogleFilled />
-        Iniciar sesión con Google
+        {mode === "login"
+          ? "Iniciar sesión con Google"
+          : "Registrarse con Google"}
       </Button>
-      <Button
-        className="cursor-pointer"
-        variant="outline"
-        type="button"
-        onClick={authWithGitHub}
-      >
+      <Button variant="outline" type="button" onClick={authWithGitHub}>
         <IconBrandGithub />
-        Iniciar sesión con GitHub
+        {mode === "login"
+          ? "Iniciar sesión con GitHub"
+          : "Registrarse con GitHub"}
       </Button>
-    </div>
+    </section>
   );
 }
