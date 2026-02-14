@@ -1,11 +1,12 @@
 import { useForm } from "@tanstack/react-form";
-import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
 
 import { ShowPassword } from "@/auth/components/ShowPassword";
 import { SocialAuth } from "@/auth/components/SocialAuth";
-import { registerFormSchema } from "@/auth/schemas/auth";
-import { register } from "@/auth/services/auth";
+import { authClient } from "@/auth/lib/auth-client";
+import { signupSchema } from "@/auth/schemas/auth";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -22,9 +23,12 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import { Spinner } from "@/components/ui/spinner";
 
 export function RegisterForm() {
+  const [isPending, startTransition] = useTransition();
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -34,9 +38,27 @@ export function RegisterForm() {
       confirm_password: "",
     },
     validators: {
-      onSubmit: registerFormSchema,
+      onSubmit: signupSchema,
     },
-    onSubmit: register,
+    onSubmit: ({ value }) => {
+      startTransition(async () => {
+        await authClient.signUp.email({
+          name: value.name,
+          email: value.email,
+          password: value.password,
+          // callbackURL: "/dashboard",
+          fetchOptions: {
+            onSuccess: () => {
+              toast.success("Registro exitoso");
+              void navigate({ to: "/dashboard" });
+            },
+            onError: ({ error }) => {
+              toast.error(error.message);
+            },
+          },
+        });
+      });
+    },
   });
 
   return (
@@ -54,7 +76,7 @@ export function RegisterForm() {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
-              <Field>
+              <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={field.name}>Nombre</FieldLabel>
                 <Input
                   id={field.name}
@@ -78,7 +100,7 @@ export function RegisterForm() {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
-              <Field>
+              <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                 <Input
                   id={field.name}
@@ -102,7 +124,7 @@ export function RegisterForm() {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
-              <Field>
+              <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                 <InputGroup>
                   <InputGroupInput
@@ -133,7 +155,7 @@ export function RegisterForm() {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
-              <Field>
+              <Field data-invalid={isInvalid}>
                 <FieldLabel htmlFor={field.name}>
                   Repite la contraseña
                 </FieldLabel>
@@ -170,11 +192,20 @@ export function RegisterForm() {
           </FieldLabel>
         </Field>
         <Field>
-          <Button type="submit">Registrase</Button>
+          <Button type="submit" disabled={isPending}>
+            {isPending ? (
+              <>
+                <Spinner />
+                Registrando...
+              </>
+            ) : (
+              "Registrarse"
+            )}
+          </Button>
           <FieldSeparator className="my-2 *:data-[slot=field-separator-content]:bg-card [&>div]:h-px">
             O registrate con
           </FieldSeparator>
-          <SocialAuth />
+          <SocialAuth mode="signup" />
           <FieldDescription className="py-2.5 text-center">
             ¿Ya tienes una cuenta? <Link to="/login">Inicia sesión</Link>
           </FieldDescription>
