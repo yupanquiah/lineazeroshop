@@ -8,14 +8,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export function AuthCard({ children }: { children: ReactNode }) {
+interface Props {
+  title: string;
+  description?: string;
+  children: ReactNode;
+}
+
+export function AuthCard({ title, description, children }: Props) {
   return (
-    <Card>
+    <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle>Login to your account</CardTitle>
-        <CardDescription>
-          Enter your email below to login to your account
-        </CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>{children}</CardContent>
     </Card>
