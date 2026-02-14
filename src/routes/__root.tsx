@@ -1,9 +1,9 @@
 import "@fontsource-variable/geist?url";
 
-import { Toast } from "@heroui/react";
 import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import appCss from "@/styles/global.css?url";
 
@@ -39,18 +39,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Toast.Provider placement="bottom end" />
+        <ThemeProvider>
           <TooltipProvider>
             {children}
-            <Scripts />
+            <Toaster closeButton />
           </TooltipProvider>
         </ThemeProvider>
+        <Scripts />
       </body>
     </html>
   );
