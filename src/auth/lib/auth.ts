@@ -11,6 +11,7 @@ export const auth = betterAuth({
   plugins: [tanstackStartCookies()],
   emailAndPassword: {
     enabled: true,
+    requireEmailVerification: false,
   },
   socialProviders: {
     github: {
