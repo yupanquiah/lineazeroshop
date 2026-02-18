@@ -1,7 +1,7 @@
 import { useForm } from "@tanstack/react-form";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useState, useTransition } from "react";
-import { toast } from "sonner";
+import { sileo } from "sileo";
 
 import { ShowPassword } from "@/auth/components/ShowPassword";
 import { SocialAuth } from "@/auth/components/SocialAuth";
@@ -46,13 +46,16 @@ export function LoginForm() {
           //callbackURL: '/dashboard',
           fetchOptions: {
             onSuccess: () => {
-              toast.success("Logged in successfully");
+              sileo.success({ title: "Inicio de sesión exitoso" });
               void navigate({
                 to: "/dashboard",
               });
             },
             onError: ({ error }) => {
-              toast.error(error.message);
+              sileo.error({
+                title: "Error al iniciar sesión",
+                description: error.message,
+              });
             },
           },
         });
