@@ -1,10 +1,10 @@
 import "@fontsource-variable/geist?url";
 
-import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
+import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Toaster } from "sileo";
 
 import { NotFound } from "@/components/NotFound";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import appCss from "@/styles/global.css?url";
 
@@ -44,7 +44,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <ThemeProvider>
           <TooltipProvider>
             {children}
-            <Toaster closeButton />
+            <Toaster />
           </TooltipProvider>
         </ThemeProvider>
         <Scripts />
