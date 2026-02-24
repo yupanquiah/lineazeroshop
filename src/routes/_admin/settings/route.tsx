@@ -4,9 +4,7 @@ import { SettingLayout } from "@/app/layouts/SettingLayout";
 
 export const Route = createFileRoute("/_admin/settings")({
   component: RouteComponent,
-  staticData: {
-    breadcrumb: "Ajustes",
-  },
+  staticData: { breadcrumb: "Ajustes" },
 });
 
 function RouteComponent() {
