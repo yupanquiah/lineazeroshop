@@ -8,212 +8,335 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
-import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
-import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
-import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.index'
-import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
-import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
-import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ssr.data-only'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as AdminDashboardRouteImport } from "./routes/_admin/dashboard";
+import { Route as AdminRouteRouteImport } from "./routes/_admin/route";
+import { Route as AdminSettingsAppearanceRouteImport } from "./routes/_admin/settings/appearance";
+import { Route as AdminSettingsCompanyRouteImport } from "./routes/_admin/settings/company";
+import { Route as AdminSettingsIndexRouteImport } from "./routes/_admin/settings/index";
+import { Route as AdminSettingsRouteRouteImport } from "./routes/_admin/settings/route";
+import { Route as AuthForgotPasswordRouteImport } from "./routes/_auth/forgot-password";
+import { Route as AuthLoginIndexRouteImport } from "./routes/_auth/login/index";
+import { Route as AuthRouteRouteImport } from "./routes/_auth/route";
+import { Route as AuthSignupIndexRouteImport } from "./routes/_auth/signup/index";
+import { Route as ApiAuthSplatRouteImport } from "./routes/api/auth/$";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as TermsRouteImport } from "./routes/terms";
 
+const TermsRoute = TermsRouteImport.update({
+  id: "/terms",
+  path: "/terms",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const AuthRouteRoute = AuthRouteRouteImport.update({
+  id: "/_auth",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: "/_admin",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
-  id: '/demo/start/server-funcs',
-  path: '/demo/start/server-funcs',
+} as any);
+const AuthForgotPasswordRoute = AuthForgotPasswordRouteImport.update({
+  id: "/forgot-password",
+  path: "/forgot-password",
+  getParentRoute: () => AuthRouteRoute,
+} as any);
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: "/dashboard",
+  path: "/dashboard",
+  getParentRoute: () => AdminRouteRoute,
+} as any);
+const AdminSettingsRouteRoute = AdminSettingsRouteRouteImport.update({
+  id: "/settings",
+  path: "/settings",
+  getParentRoute: () => AdminRouteRoute,
+} as any);
+const AuthSignupIndexRoute = AuthSignupIndexRouteImport.update({
+  id: "/signup/",
+  path: "/signup/",
+  getParentRoute: () => AuthRouteRoute,
+} as any);
+const AuthLoginIndexRoute = AuthLoginIndexRouteImport.update({
+  id: "/login/",
+  path: "/login/",
+  getParentRoute: () => AuthRouteRoute,
+} as any);
+const AdminSettingsIndexRoute = AdminSettingsIndexRouteImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => AdminSettingsRouteRoute,
+} as any);
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: "/api/auth/$",
+  path: "/api/auth/$",
   getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartApiRequestRoute = DemoStartApiRequestRouteImport.update({
-  id: '/demo/start/api-request',
-  path: '/demo/start/api-request',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoApiNamesRoute = DemoApiNamesRouteImport.update({
-  id: '/demo/api/names',
-  path: '/demo/api/names',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartSsrIndexRoute = DemoStartSsrIndexRouteImport.update({
-  id: '/demo/start/ssr/',
-  path: '/demo/start/ssr/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartSsrSpaModeRoute = DemoStartSsrSpaModeRouteImport.update({
-  id: '/demo/start/ssr/spa-mode',
-  path: '/demo/start/ssr/spa-mode',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartSsrFullSsrRoute = DemoStartSsrFullSsrRouteImport.update({
-  id: '/demo/start/ssr/full-ssr',
-  path: '/demo/start/ssr/full-ssr',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
-  id: '/demo/start/ssr/data-only',
-  path: '/demo/start/ssr/data-only',
-  getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
+const AdminSettingsCompanyRoute = AdminSettingsCompanyRouteImport.update({
+  id: "/company",
+  path: "/company",
+  getParentRoute: () => AdminSettingsRouteRoute,
+} as any);
+const AdminSettingsAppearanceRoute = AdminSettingsAppearanceRouteImport.update({
+  id: "/appearance",
+  path: "/appearance",
+  getParentRoute: () => AdminSettingsRouteRoute,
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/demo/api/names': typeof DemoApiNamesRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
-  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
-  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
-  '/demo/start/ssr/': typeof DemoStartSsrIndexRoute
+  "/": typeof IndexRoute;
+  "/terms": typeof TermsRoute;
+  "/settings": typeof AdminSettingsRouteRouteWithChildren;
+  "/dashboard": typeof AdminDashboardRoute;
+  "/forgot-password": typeof AuthForgotPasswordRoute;
+  "/settings/appearance": typeof AdminSettingsAppearanceRoute;
+  "/settings/company": typeof AdminSettingsCompanyRoute;
+  "/api/auth/$": typeof ApiAuthSplatRoute;
+  "/settings/": typeof AdminSettingsIndexRoute;
+  "/login/": typeof AuthLoginIndexRoute;
+  "/signup/": typeof AuthSignupIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/demo/api/names': typeof DemoApiNamesRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
-  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
-  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
-  '/demo/start/ssr': typeof DemoStartSsrIndexRoute
+  "/": typeof IndexRoute;
+  "/terms": typeof TermsRoute;
+  "/dashboard": typeof AdminDashboardRoute;
+  "/forgot-password": typeof AuthForgotPasswordRoute;
+  "/settings/appearance": typeof AdminSettingsAppearanceRoute;
+  "/settings/company": typeof AdminSettingsCompanyRoute;
+  "/api/auth/$": typeof ApiAuthSplatRoute;
+  "/settings": typeof AdminSettingsIndexRoute;
+  "/login": typeof AuthLoginIndexRoute;
+  "/signup": typeof AuthSignupIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/demo/api/names': typeof DemoApiNamesRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
-  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
-  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
-  '/demo/start/ssr/': typeof DemoStartSsrIndexRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/_admin": typeof AdminRouteRouteWithChildren;
+  "/_auth": typeof AuthRouteRouteWithChildren;
+  "/terms": typeof TermsRoute;
+  "/_admin/settings": typeof AdminSettingsRouteRouteWithChildren;
+  "/_admin/dashboard": typeof AdminDashboardRoute;
+  "/_auth/forgot-password": typeof AuthForgotPasswordRoute;
+  "/_admin/settings/appearance": typeof AdminSettingsAppearanceRoute;
+  "/_admin/settings/company": typeof AdminSettingsCompanyRoute;
+  "/api/auth/$": typeof ApiAuthSplatRoute;
+  "/_admin/settings/": typeof AdminSettingsIndexRoute;
+  "/_auth/login/": typeof AuthLoginIndexRoute;
+  "/_auth/signup/": typeof AuthSignupIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | '/demo/api/names'
-    | '/demo/start/api-request'
-    | '/demo/start/server-funcs'
-    | '/demo/start/ssr/data-only'
-    | '/demo/start/ssr/full-ssr'
-    | '/demo/start/ssr/spa-mode'
-    | '/demo/start/ssr/'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | "/terms"
+    | "/settings"
+    | "/dashboard"
+    | "/forgot-password"
+    | "/settings/appearance"
+    | "/settings/company"
+    | "/api/auth/$"
+    | "/settings/"
+    | "/login/"
+    | "/signup/";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | '/demo/api/names'
-    | '/demo/start/api-request'
-    | '/demo/start/server-funcs'
-    | '/demo/start/ssr/data-only'
-    | '/demo/start/ssr/full-ssr'
-    | '/demo/start/ssr/spa-mode'
-    | '/demo/start/ssr'
+    | "/"
+    | "/terms"
+    | "/dashboard"
+    | "/forgot-password"
+    | "/settings/appearance"
+    | "/settings/company"
+    | "/api/auth/$"
+    | "/settings"
+    | "/login"
+    | "/signup";
   id:
-    | '__root__'
-    | '/'
-    | '/demo/api/names'
-    | '/demo/start/api-request'
-    | '/demo/start/server-funcs'
-    | '/demo/start/ssr/data-only'
-    | '/demo/start/ssr/full-ssr'
-    | '/demo/start/ssr/spa-mode'
-    | '/demo/start/ssr/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/_admin"
+    | "/_auth"
+    | "/terms"
+    | "/_admin/settings"
+    | "/_admin/dashboard"
+    | "/_auth/forgot-password"
+    | "/_admin/settings/appearance"
+    | "/_admin/settings/company"
+    | "/api/auth/$"
+    | "/_admin/settings/"
+    | "/_auth/login/"
+    | "/_auth/signup/";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  DemoApiNamesRoute: typeof DemoApiNamesRoute
-  DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
-  DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
-  DemoStartSsrDataOnlyRoute: typeof DemoStartSsrDataOnlyRoute
-  DemoStartSsrFullSsrRoute: typeof DemoStartSsrFullSsrRoute
-  DemoStartSsrSpaModeRoute: typeof DemoStartSsrSpaModeRoute
-  DemoStartSsrIndexRoute: typeof DemoStartSsrIndexRoute
+  IndexRoute: typeof IndexRoute;
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren;
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren;
+  TermsRoute: typeof TermsRoute;
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/start/server-funcs': {
-      id: '/demo/start/server-funcs'
-      path: '/demo/start/server-funcs'
-      fullPath: '/demo/start/server-funcs'
-      preLoaderRoute: typeof DemoStartServerFuncsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/start/api-request': {
-      id: '/demo/start/api-request'
-      path: '/demo/start/api-request'
-      fullPath: '/demo/start/api-request'
-      preLoaderRoute: typeof DemoStartApiRequestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/api/names': {
-      id: '/demo/api/names'
-      path: '/demo/api/names'
-      fullPath: '/demo/api/names'
-      preLoaderRoute: typeof DemoApiNamesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/start/ssr/': {
-      id: '/demo/start/ssr/'
-      path: '/demo/start/ssr'
-      fullPath: '/demo/start/ssr/'
-      preLoaderRoute: typeof DemoStartSsrIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/start/ssr/spa-mode': {
-      id: '/demo/start/ssr/spa-mode'
-      path: '/demo/start/ssr/spa-mode'
-      fullPath: '/demo/start/ssr/spa-mode'
-      preLoaderRoute: typeof DemoStartSsrSpaModeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/start/ssr/full-ssr': {
-      id: '/demo/start/ssr/full-ssr'
-      path: '/demo/start/ssr/full-ssr'
-      fullPath: '/demo/start/ssr/full-ssr'
-      preLoaderRoute: typeof DemoStartSsrFullSsrRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/start/ssr/data-only': {
-      id: '/demo/start/ssr/data-only'
-      path: '/demo/start/ssr/data-only'
-      fullPath: '/demo/start/ssr/data-only'
-      preLoaderRoute: typeof DemoStartSsrDataOnlyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/terms": {
+      id: "/terms";
+      path: "/terms";
+      fullPath: "/terms";
+      preLoaderRoute: typeof TermsRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/_auth": {
+      id: "/_auth";
+      path: "";
+      fullPath: "/";
+      preLoaderRoute: typeof AuthRouteRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/_admin": {
+      id: "/_admin";
+      path: "";
+      fullPath: "/";
+      preLoaderRoute: typeof AdminRouteRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/_auth/forgot-password": {
+      id: "/_auth/forgot-password";
+      path: "/forgot-password";
+      fullPath: "/forgot-password";
+      preLoaderRoute: typeof AuthForgotPasswordRouteImport;
+      parentRoute: typeof AuthRouteRoute;
+    };
+    "/_admin/dashboard": {
+      id: "/_admin/dashboard";
+      path: "/dashboard";
+      fullPath: "/dashboard";
+      preLoaderRoute: typeof AdminDashboardRouteImport;
+      parentRoute: typeof AdminRouteRoute;
+    };
+    "/_admin/settings": {
+      id: "/_admin/settings";
+      path: "/settings";
+      fullPath: "/settings";
+      preLoaderRoute: typeof AdminSettingsRouteRouteImport;
+      parentRoute: typeof AdminRouteRoute;
+    };
+    "/_auth/signup/": {
+      id: "/_auth/signup/";
+      path: "/signup";
+      fullPath: "/signup/";
+      preLoaderRoute: typeof AuthSignupIndexRouteImport;
+      parentRoute: typeof AuthRouteRoute;
+    };
+    "/_auth/login/": {
+      id: "/_auth/login/";
+      path: "/login";
+      fullPath: "/login/";
+      preLoaderRoute: typeof AuthLoginIndexRouteImport;
+      parentRoute: typeof AuthRouteRoute;
+    };
+    "/_admin/settings/": {
+      id: "/_admin/settings/";
+      path: "/";
+      fullPath: "/settings/";
+      preLoaderRoute: typeof AdminSettingsIndexRouteImport;
+      parentRoute: typeof AdminSettingsRouteRoute;
+    };
+    "/api/auth/$": {
+      id: "/api/auth/$";
+      path: "/api/auth/$";
+      fullPath: "/api/auth/$";
+      preLoaderRoute: typeof ApiAuthSplatRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/_admin/settings/company": {
+      id: "/_admin/settings/company";
+      path: "/company";
+      fullPath: "/settings/company";
+      preLoaderRoute: typeof AdminSettingsCompanyRouteImport;
+      parentRoute: typeof AdminSettingsRouteRoute;
+    };
+    "/_admin/settings/appearance": {
+      id: "/_admin/settings/appearance";
+      path: "/appearance";
+      fullPath: "/settings/appearance";
+      preLoaderRoute: typeof AdminSettingsAppearanceRouteImport;
+      parentRoute: typeof AdminSettingsRouteRoute;
+    };
   }
 }
 
+interface AdminSettingsRouteRouteChildren {
+  AdminSettingsAppearanceRoute: typeof AdminSettingsAppearanceRoute;
+  AdminSettingsCompanyRoute: typeof AdminSettingsCompanyRoute;
+  AdminSettingsIndexRoute: typeof AdminSettingsIndexRoute;
+}
+
+const AdminSettingsRouteRouteChildren: AdminSettingsRouteRouteChildren = {
+  AdminSettingsAppearanceRoute: AdminSettingsAppearanceRoute,
+  AdminSettingsCompanyRoute: AdminSettingsCompanyRoute,
+  AdminSettingsIndexRoute: AdminSettingsIndexRoute,
+};
+
+const AdminSettingsRouteRouteWithChildren =
+  AdminSettingsRouteRoute._addFileChildren(AdminSettingsRouteRouteChildren);
+
+interface AdminRouteRouteChildren {
+  AdminSettingsRouteRoute: typeof AdminSettingsRouteRouteWithChildren;
+  AdminDashboardRoute: typeof AdminDashboardRoute;
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminSettingsRouteRoute: AdminSettingsRouteRouteWithChildren,
+  AdminDashboardRoute: AdminDashboardRoute,
+};
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+);
+
+interface AuthRouteRouteChildren {
+  AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute;
+  AuthLoginIndexRoute: typeof AuthLoginIndexRoute;
+  AuthSignupIndexRoute: typeof AuthSignupIndexRoute;
+}
+
+const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthForgotPasswordRoute: AuthForgotPasswordRoute,
+  AuthLoginIndexRoute: AuthLoginIndexRoute,
+  AuthSignupIndexRoute: AuthSignupIndexRoute,
+};
+
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
+);
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DemoApiNamesRoute: DemoApiNamesRoute,
-  DemoStartApiRequestRoute: DemoStartApiRequestRoute,
-  DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
-  DemoStartSsrDataOnlyRoute: DemoStartSsrDataOnlyRoute,
-  DemoStartSsrFullSsrRoute: DemoStartSsrFullSsrRoute,
-  DemoStartSsrSpaModeRoute: DemoStartSsrSpaModeRoute,
-  DemoStartSsrIndexRoute: DemoStartSsrIndexRoute,
-}
+  AdminRouteRoute: AdminRouteRouteWithChildren,
+  AuthRouteRoute: AuthRouteRouteWithChildren,
+  TermsRoute: TermsRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
+import type { createStart } from "@tanstack/react-start";
+
+import type { getRouter } from "./router.tsx";
+declare module "@tanstack/react-start" {
   interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
+    ssr: true;
+    router: Awaited<ReturnType<typeof getRouter>>;
   }
 }
